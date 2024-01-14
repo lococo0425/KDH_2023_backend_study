@@ -95,29 +95,3 @@ public class Step1_re {
     }
 
 }
-//    private static int getPlayerMoveIndex(String move){
-//        switch (move){
-//            case "바위" :
-//                return 0;
-//            case "가위":
-//                return 1;
-//            case "보":
-//                return 2;
-//            default:
-//                return -1;
-//        }
-//    }
-//
-//    private  static String getMoveName(int move){
-//        switch(move){
-//            case 0:
-//                return "바위";
-//            case 1:
-//                return "가위";
-//            case 2:
-//                return "보";
-//            default:
-//                return "잘못!";
-//        }
-//    }
-//}
