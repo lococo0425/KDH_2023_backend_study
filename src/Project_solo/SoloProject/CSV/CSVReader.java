@@ -28,7 +28,7 @@ public class CSVReader {
 
     public List<Ps_MovieDto> readCSV(){
         List<Ps_MovieDto> movieList = new ArrayList<>();
-        File csv = new File("C:\\Users\\504\\Desktop\\ezen_2023B_backend\\KDH_2023B_backend\\src\\Project_solo\\KC_KOBIS_BOX_OFFIC_MOVIE_INFO_202309.csv");
+        File csv = new File("C:\\Users\\lococ\\IdeaProjects\\untitled\\src\\Project_solo\\KC_KOBIS_BOX_OFFIC_MOVIE_INFO_202309.csv");
         BufferedReader br = null;
         String line ="";
 

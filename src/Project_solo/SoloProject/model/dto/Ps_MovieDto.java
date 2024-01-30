@@ -211,6 +211,7 @@ public class Ps_MovieDto {
     }
 
 
-
-
+    public Object getMovieId() {
+        return 0;
+    }
 }
