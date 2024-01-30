@@ -50,4 +50,24 @@ public class Ps_MovieDao extends PsDao{
         }
      return result;
     }
+
+
+    public String selectGerne(Ps_MovieDto psMovieDto){
+        String result = "";
+        try{
+            String sql = "select genre from movies";
+            preparedStatement=connection.prepareStatement(sql);
+            resultSet=preparedStatement.executeQuery();
+
+            String sql2 = "insert into logs(selectge) values (?)";
+            preparedStatement = connection.prepareStatement(sql2);
+            preparedStatement.setString(1,psMovieDto.getGenreName());
+            if(resultSet.next()){
+                return sql;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
