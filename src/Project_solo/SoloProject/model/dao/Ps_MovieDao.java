@@ -3,6 +3,7 @@ package Project_solo.SoloProject.model.dao;
 
 import Project_solo.SoloProject.CSV.CSVReader;
 import Project_solo.SoloProject.model.dto.Ps_MovieDto;
+import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
 import java.sql.PreparedStatement;
 import java.util.List;
@@ -55,19 +56,38 @@ public class Ps_MovieDao extends PsDao{
     public String selectGerne(Ps_MovieDto psMovieDto){
         String result = "";
         try{
-            String sql = "select genre from movies";
-            preparedStatement=connection.prepareStatement(sql);
-            resultSet=preparedStatement.executeQuery();
+            String sql = "select * from movies where genre =?";
+            System.out.println("쿼리"+sql);
+            System.out.println("인풋"+psMovieDto.getGradeName());
 
-            String sql2 = "insert into logs(selectge) values (?)";
-            preparedStatement = connection.prepareStatement(sql2);
+            preparedStatement=connection.prepareStatement(sql);
             preparedStatement.setString(1,psMovieDto.getGenreName());
+            resultSet=preparedStatement.executeQuery();
             if(resultSet.next()){
-                return sql;
+                result = resultSet.getString("genre");
+                System.out.println("result = " + result);
+                //로그남기기
+                Ps_memberDto ps_memberDto = new Ps_memberDto(); // mid를 사용하기 위해 선언
+                logActive(ps_memberDto.getMemberid(),psMovieDto.getGenreName());
             }
         }catch (Exception e){
             e.printStackTrace();
         }
         return result;
     }
+
+    //로그 남기기
+    private void logActive(String mid, String logMessage){
+        try{
+            String sql = "insert into logs(mno,log_message) values(?,?)";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,mid);
+            preparedStatement.setString(2,logMessage);
+            preparedStatement.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

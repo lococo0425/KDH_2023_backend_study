@@ -13,13 +13,13 @@ import java.util.Scanner;
 
 public class CSVReader {
     Scanner scanner = new Scanner(System.in);
+    public static List<Ps_MovieDto> movielist = null;
 
-
-        public static void main(String[] args) {// main s
-            CSVReader csvReader = new CSVReader();
-            List<Ps_MovieDto> movielist = csvReader.readCSV();
-            for(int i=0; i<movielist.size(); i++) {
-                System.out.println(movielist.get(i));
+    public static void main(String[] args) {// main s
+        CSVReader csvReader = new CSVReader();
+        movielist = csvReader.readCSV();
+        for(int i=0; i<movielist.size(); i++) {
+            System.out.println(movielist.get(i));
         }
 
 
@@ -28,7 +28,7 @@ public class CSVReader {
 
     public List<Ps_MovieDto> readCSV(){
         List<Ps_MovieDto> movieList = new ArrayList<>();
-        File csv = new File("C:\\Users\\lococ\\IdeaProjects\\untitled\\src\\Project_solo\\KC_KOBIS_BOX_OFFIC_MOVIE_INFO_202309.csv");
+        File csv = new File("src/Project_solo/KC_KOBIS_BOX_OFFIC_MOVIE_INFO_202309.csv");
         BufferedReader br = null;
         String line ="";
 

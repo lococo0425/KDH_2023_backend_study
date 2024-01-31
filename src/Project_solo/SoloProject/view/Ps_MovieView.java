@@ -44,10 +44,9 @@ public class Ps_MovieView {
         //결과 출력
         String result = Ps_movieController.getInstance().selectGerne();
 
-        if(result.equals(psMovieDto.getGenreName())){
+        if(!result.isEmpty() && result.equals(psMovieDto.getGenreName())){
             System.out.println(psMovieDto.getGenreName()+"에 해당 하는 영화입니다.");
-
-        }else{
+        } else {
             System.out.println("해당 장르가 존재하지 않습니다.");
         }
     }

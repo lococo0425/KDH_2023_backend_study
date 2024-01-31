@@ -1,5 +1,6 @@
 package Project_solo.SoloProject.controller;
 
+import Project_solo.SoloProject.CSV.CSVReader;
 import Project_solo.SoloProject.model.dao.Ps_MovieDao;
 import Project_solo.SoloProject.model.dao.Ps_memberDao;
 import Project_solo.SoloProject.model.dto.Ps_MovieDto;
@@ -17,8 +18,9 @@ public class Ps_movieController {
     public String printMovie(Ps_MovieDto psMovieDto){
         String result = "";
 
-
-        result = Ps_MovieDao.getInstance().printMovie(psMovieDto);
+        for( int i = 0 ; i< CSVReader.movielist.size(); i++ ){
+            result = Ps_MovieDao.getInstance().printMovie(CSVReader.movielist.get(i) );
+        }
 
         return result;
     }
@@ -27,6 +29,7 @@ public class Ps_movieController {
         String result;
 
         result = Ps_MovieDao.getInstance().selectGerne(new Ps_MovieDto());
+
 
         return result;
     }

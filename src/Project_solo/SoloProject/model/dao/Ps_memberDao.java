@@ -37,6 +37,8 @@ public class Ps_memberDao extends PsDao{
 
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
+                String mid = resultSet.getString("mno");
+
                 return true;
             }
 
@@ -46,5 +48,29 @@ public class Ps_memberDao extends PsDao{
         }
 
         return false;
+    }
+
+    private void insertLogUserlogin(Ps_memberDto ps_memberDto){
+        try{
+            String sql = "insert into logs (mno,log_message)values(?,?)";
+            preparedStatement=connection.prepareStatement(sql);
+            preparedStatement.setString(1,ps_memberDto.getMemberid());
+            preparedStatement.setString(2,"User login");
+            preparedStatement.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void insertLogActive(Ps_memberDto ps_memberDto){
+        try{
+            String sql = "insert into logs(mno,log_message) values(?,?)";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,ps_memberDto.getMemberid());
+            //preparedStatement.setString(2,);
+            preparedStatement.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
