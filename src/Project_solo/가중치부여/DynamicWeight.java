@@ -47,12 +47,13 @@ public class DynamicWeight {
 
         double cumulativeWeight = 0.0;
         for (int i = 0; i < values.size(); i++) {
+
             cumulativeWeight += weights.get(i);
             if (randomValue < cumulativeWeight) {
                 return values.get(i);
             }
         }
 
-        throw new RuntimeException("오류!!");
+        return values.toString();
     }
 }

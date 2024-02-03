@@ -6,7 +6,9 @@ import Project_solo.SoloProject.model.dto.Ps_MovieDto;
 import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
 import java.sql.PreparedStatement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Ps_MovieDao extends PsDao{
 
@@ -53,22 +55,27 @@ public class Ps_MovieDao extends PsDao{
     }
 
 
-    public String selectGerne(Ps_MovieDto psMovieDto){
+    public String selectGerne(HashMap<Ps_memberDto, Ps_MovieDto> map){
         String result = "";
         try{
             String sql = "select * from movies where genre =?";
-            System.out.println("쿼리"+sql);
-            System.out.println("인풋"+psMovieDto.getGradeName());
+
+            String logmessage ="";
+
+            for (Map.Entry<Ps_memberDto, Ps_MovieDto> entry : map.entrySet()) {
+
+                logmessage = entry.getValue().getGenreName();
+            }
 
             preparedStatement=connection.prepareStatement(sql);
-            preparedStatement.setString(1,psMovieDto.getGenreName());
+            preparedStatement.setString(1,logmessage);
             resultSet=preparedStatement.executeQuery();
             if(resultSet.next()){
                 result = resultSet.getString("genre");
                 System.out.println("result = " + result);
                 //로그남기기
                 Ps_memberDto ps_memberDto = new Ps_memberDto(); // mid를 사용하기 위해 선언
-                logActive(ps_memberDto.getMemberid(),psMovieDto.getGenreName());
+                logActive(map);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -77,16 +84,25 @@ public class Ps_MovieDao extends PsDao{
     }
 
     //로그 남기기
-    private void logActive(String mid, String logMessage){
+    public boolean logActive(HashMap<Ps_memberDto, Ps_MovieDto> map){
         try{
-            String sql = "insert into logs(mno,log_message) values(?,?)";
+            String sql = "insert into logs(mid,log_message) values(?,?)";
+            String logmessage ="";
+            String id= "";
+            for (Map.Entry<Ps_memberDto, Ps_MovieDto> entry : map.entrySet()) {
+                id = entry.getKey().getMemberid();
+                logmessage = entry.getValue().getGenreName();
+            }
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,mid);
-            preparedStatement.setString(2,logMessage);
+            preparedStatement.setString(1,id);
+
+            preparedStatement.setString(2,logmessage);
             preparedStatement.executeUpdate();
+            return true;
         }catch (Exception e){
             e.printStackTrace();
         }
+        return false;
     }
 
 
