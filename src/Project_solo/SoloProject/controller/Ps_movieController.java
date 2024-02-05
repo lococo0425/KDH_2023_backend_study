@@ -4,7 +4,9 @@ import Project_solo.SoloProject.CSV.CSVReader;
 import Project_solo.SoloProject.model.dao.Ps_MovieDao;
 import Project_solo.SoloProject.model.dao.Ps_memberDao;
 import Project_solo.SoloProject.model.dto.Ps_MovieDto;
+import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Ps_movieController {
@@ -25,12 +27,20 @@ public class Ps_movieController {
         return result;
     }
 
-    public String selectGerne(){
+    public String selectGerne(HashMap<Ps_memberDto, Ps_MovieDto> map){
         String result;
 
-        result = Ps_MovieDao.getInstance().selectGerne(new Ps_MovieDto());
+        result = Ps_MovieDao.getInstance().selectGerne(map);
 
 
         return result;
+    }
+
+    public boolean insertLogActive(HashMap<Ps_memberDto, Ps_MovieDto> map){
+        boolean result= false;
+
+        result = Ps_MovieDao.getInstance().logActive(map);
+
+        return  result;
     }
 }

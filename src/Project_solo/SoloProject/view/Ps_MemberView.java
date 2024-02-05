@@ -3,12 +3,17 @@ package Project_solo.SoloProject.view;
 import Project_solo.SoloProject.controller.Ps_memberController;
 import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ps_MemberView {
     private Ps_MemberView(){}
     private static Ps_MemberView psMemberView = new Ps_MemberView();
     public static Ps_MemberView getInstance(){return psMemberView;}
+    public static List<String>loginState = new ArrayList<>();
+
+    public static Ps_memberDto nowlogin;
 
     Scanner scanner = new Scanner(System.in);
 
@@ -29,6 +34,7 @@ public class Ps_MemberView {
 
     //로그인
     public void logIn(){
+
         System.out.print("아이디 : "); String id = scanner.nextLine();
         System.out.print("비밀번호 : ");    String pw = scanner.nextLine();
 
@@ -43,9 +49,15 @@ public class Ps_MemberView {
             System.out.println("<로그인 성공>");
             Ps_MovieView.printMovie();
 
+            nowlogin = ps_memberDto;
+
         }else {
             System.out.println("<로그인 실패>");
         }
 
+
+
     }
+
+
 }

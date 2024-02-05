@@ -25,4 +25,10 @@ public class Ps_memberController {
         return result;
     }
 
+//    public boolean insertLogActive(Ps_memberDto ps_memberDto){
+//        boolean result = false;
+//        result = Ps_memberDao.getInstance().insertLogActive(ps_memberDto);
+//
+//        return result;
+//    }
 }

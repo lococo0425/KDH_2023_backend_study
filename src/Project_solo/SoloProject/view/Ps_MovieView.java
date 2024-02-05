@@ -3,8 +3,12 @@ package Project_solo.SoloProject.view;
 import Project_solo.SoloProject.CSV.CSVReader;
 import Project_solo.SoloProject.controller.Ps_movieController;
 import Project_solo.SoloProject.model.dto.Ps_MovieDto;
+import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ps_MovieView {
@@ -40,14 +44,32 @@ public class Ps_MovieView {
         //객체화
         Ps_MovieDto psMovieDto = new Ps_MovieDto();
         psMovieDto.setGenreName(genre);
+        HashMap<Ps_memberDto, Ps_MovieDto> map = new HashMap<>();
+        map.put(Ps_MemberView.nowlogin,psMovieDto);
 
         //결과 출력
-        String result = Ps_movieController.getInstance().selectGerne();
+        String result = Ps_movieController.getInstance().selectGerne(map);
 
         if(!result.isEmpty() && result.equals(psMovieDto.getGenreName())){
+
             System.out.println(psMovieDto.getGenreName()+"에 해당 하는 영화입니다.");
+            List<String> MovieListge = new ArrayList<>();
+
+            //장르에 맞는 영화 출력 구문
+            for(int i=0; i<CSVReader.movielist.size();i++){
+
+                String currentSelectge = CSVReader.movielist.get(i).getGenreName();
+
+                if(currentSelectge.equals(result)){
+                    MovieListge.add(String.valueOf(CSVReader.movielist.get(i)));
+
+                }
+
+            }System.out.println(MovieListge);
         } else {
             System.out.println("해당 장르가 존재하지 않습니다.");
         }
     }
+
+
 }
