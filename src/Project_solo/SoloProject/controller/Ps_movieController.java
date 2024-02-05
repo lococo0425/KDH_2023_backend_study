@@ -43,4 +43,14 @@ public class Ps_movieController {
 
         return  result;
     }
+
+    public String recommendMovie(Ps_memberDto ps_memberDto){
+        String result = "";
+
+        result = Ps_MovieDao.getInstance().recommendMovie(ps_memberDto);
+
+
+        return  result;
+    }
+
 }

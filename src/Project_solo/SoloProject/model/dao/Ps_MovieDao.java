@@ -5,6 +5,7 @@ import Project_solo.SoloProject.CSV.CSVReader;
 import Project_solo.SoloProject.model.dto.Ps_MovieDto;
 import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +73,7 @@ public class Ps_MovieDao extends PsDao{
             resultSet=preparedStatement.executeQuery();
             if(resultSet.next()){
                 result = resultSet.getString("genre");
-                System.out.println("result = " + result);
+
                 //로그남기기
                 Ps_memberDto ps_memberDto = new Ps_memberDto(); // mid를 사용하기 위해 선언
                 logActive(map);
@@ -105,5 +106,26 @@ public class Ps_MovieDao extends PsDao{
         return false;
     }
 
+    public String recommendMovie(Ps_memberDto ps_memberDto){
+        String result="";
+        try {
 
+            String sql = "select log_message from logs  where mid = ? ";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,ps_memberDto.getMemberid());
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                result = resultSet.getString("log_message");
+                System.out.println("result = " + result);
+            }
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }
