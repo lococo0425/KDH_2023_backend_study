@@ -18,22 +18,28 @@ public class Ps_memberController {
         return result;
     }
 
+
     public boolean logIn(Ps_memberDto ps_memberDto){
         boolean result = false;
         result = Ps_memberDao.getInstance().logIn(ps_memberDto);
+
+        // 로그인 성공 시 nowlogin 변수 설정
+        if (result) {
+            nowlogin = ps_memberDto;
+        }
 
         return result;
     }
 
     public static Ps_memberDto nowlogin;
     public String loginId(){
-        return Ps_memberDao.getInstance().loginId(nowlogin);
+        // nowlogin 변수가 null인지 체크하여 반환
+        if (nowlogin != null) {
+            return Ps_memberDao.getInstance().loginId(nowlogin);
+        } else {
+            return "로그인 상태가 아닙니다.";
+        }
     }
-
-//    public boolean insertLogActive(Ps_memberDto ps_memberDto){
-//        boolean result = false;
-//        result = Ps_memberDao.getInstance().insertLogActive(ps_memberDto);
-//
-//        return result;
-//    }
 }
+
+

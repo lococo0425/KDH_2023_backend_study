@@ -30,15 +30,22 @@ public class Ps_movieController {
     }
 
     public String selectGerne(HashMap<Ps_memberDto, Ps_MovieDto> map){
-        String result;
+        String result = "";
+
+        // Ps_memberDto 객체 생성
+        Ps_memberDto psMemberDto = new Ps_memberDto();
+        // 현재 로그인한 회원의 정보를 가져와서 설정
+        psMemberDto.setMemberid(Ps_memberController.nowlogin.getMemberid());
+
+        // HashMap에 Ps_memberDto를 키로 설정
+        map.put(psMemberDto, map.get(psMemberDto));
 
         result = Ps_MovieDao.getInstance().selectGerne(map);
-
 
         return result;
     }
 
-    public boolean insertLogActive(HashMap<Ps_memberDto, Ps_MovieDto> map){
+    public boolean LogActive(HashMap<Ps_memberDto, Ps_MovieDto> map){
         boolean result= false;
 
         result = Ps_MovieDao.getInstance().logActive(map);

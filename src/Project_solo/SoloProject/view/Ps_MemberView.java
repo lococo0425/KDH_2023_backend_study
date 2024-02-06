@@ -14,7 +14,7 @@ public class Ps_MemberView {
     public static Ps_MemberView getInstance(){return psMemberView;}
     public static List<String>loginState = new ArrayList<>();
 
-    public static Ps_memberDto nowlogin;
+
 
     Scanner scanner = new Scanner(System.in);
 
@@ -56,6 +56,7 @@ public class Ps_MemberView {
         }
 
     }
+
 
 
 
