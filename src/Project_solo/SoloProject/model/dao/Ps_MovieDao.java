@@ -7,6 +7,7 @@ import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,8 +107,8 @@ public class Ps_MovieDao extends PsDao{
         return false;
     }
 
-    public String recommendMovie(Ps_memberDto ps_memberDto){
-        String result="";
+    public List<String> recommendMovie(Ps_memberDto ps_memberDto){
+        List<String> result = null;
         try {
 
             String sql = "select log_message from logs  where mid = ? ";
@@ -116,10 +117,10 @@ public class Ps_MovieDao extends PsDao{
             preparedStatement.setString(1,ps_memberDto.getMemberid());
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                result = resultSet.getString("log_message");
-                System.out.println("result = " + result);
-            }
+                result.add(ps_memberDto.getMemberid());
 
+            }
+            return result;
 
 
         }catch (Exception e){

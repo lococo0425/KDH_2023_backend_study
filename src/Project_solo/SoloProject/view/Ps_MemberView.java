@@ -1,6 +1,7 @@
 package Project_solo.SoloProject.view;
 
 import Project_solo.SoloProject.controller.Ps_memberController;
+import Project_solo.SoloProject.model.dao.Ps_memberDao;
 import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
 import java.util.ArrayList;
@@ -49,15 +50,17 @@ public class Ps_MemberView {
             System.out.println("<로그인 성공>");
             Ps_MovieView.printMovie();
 
-            nowlogin = ps_memberDto;
 
         }else {
             System.out.println("<로그인 실패>");
         }
 
-
-
     }
+
+
+
+
+
 
 
 }

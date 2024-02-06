@@ -2,6 +2,8 @@ package Project_solo.SoloProject.model.dao;
 
 import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
+import java.sql.Connection;
+
 public class Ps_memberDao extends PsDao{
     private Ps_memberDao(){}
     private static  Ps_memberDao ps_memberDao = new Ps_memberDao();
@@ -49,6 +51,21 @@ public class Ps_memberDao extends PsDao{
 
         return false;
     }
+
+  public String loginId(Ps_memberDto ps_memberDto){
+        try {
+            String sql = "select mid from logs where mid =?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,ps_memberDto.getMemberid());
+            resultSet=preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getString("mid");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+  }
 
 
 //    public boolean insertLogActive(Ps_memberDto ps_memberDto){

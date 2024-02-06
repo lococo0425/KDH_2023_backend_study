@@ -6,7 +6,9 @@ import Project_solo.SoloProject.model.dao.Ps_memberDao;
 import Project_solo.SoloProject.model.dto.Ps_MovieDto;
 import Project_solo.SoloProject.model.dto.Ps_memberDto;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ps_movieController {
@@ -44,13 +46,14 @@ public class Ps_movieController {
         return  result;
     }
 
-    public String recommendMovie(Ps_memberDto ps_memberDto){
-        String result = "";
+    public List<String> recommendMovie(Ps_memberDto ps_memberDto){
+        List<String>result = null;
 
         result = Ps_MovieDao.getInstance().recommendMovie(ps_memberDto);
 
 
         return  result;
     }
+
 
 }

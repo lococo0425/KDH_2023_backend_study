@@ -84,11 +84,11 @@ public class Ps_MovieView {
 
         Ps_memberDto ps_memberDto = new Ps_memberDto();
 
-        String result = Ps_movieController.getInstance().recommendMovie(ps_memberDto);
+        List<String> result = Ps_movieController.getInstance().recommendMovie(ps_memberDto);
 
         System.out.println(result); // 디버깅용 ** 문제발생...
         if(!result.isEmpty()){
-            list.add(result);
+            list.add(result.toString());
             System.out.println(result);//디버깅용
             System.out.println(list);
 

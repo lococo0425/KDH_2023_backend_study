@@ -25,6 +25,11 @@ public class Ps_memberController {
         return result;
     }
 
+    public static Ps_memberDto nowlogin;
+    public String loginId(){
+        return Ps_memberDao.getInstance().loginId(nowlogin);
+    }
+
 //    public boolean insertLogActive(Ps_memberDto ps_memberDto){
 //        boolean result = false;
 //        result = Ps_memberDao.getInstance().insertLogActive(ps_memberDto);
