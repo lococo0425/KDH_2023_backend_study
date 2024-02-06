@@ -22,7 +22,6 @@ public class Ps_MovieDao extends PsDao{
                     "distribution_company, release_date, movie_type, movie_style, nationality, total_screen_count, " +
                     "sales_price, viewing_number, seoul_sales_price, seoul_viewing_number, genre, grade, movie_subdivision) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            System.out.println("result = " + result);
 
 
             try(PreparedStatement preparedStatement = connection.prepareStatement(result)) {
@@ -115,15 +114,13 @@ public class Ps_MovieDao extends PsDao{
     public List<String> recommendMovie(Ps_memberDto ps_memberDto) {
         List<String> result = new ArrayList<>();
         try {
-
             String sql = "select log_message from logs  where mid = ? ";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, ps_memberDto.getMemberid());
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 result.add(resultSet.getString("log_message"));
-
             }
             return result;
 
