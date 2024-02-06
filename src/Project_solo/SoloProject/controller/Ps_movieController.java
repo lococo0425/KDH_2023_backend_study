@@ -37,7 +37,6 @@ public class Ps_movieController {
         // 현재 로그인한 회원의 정보를 가져와서 설정
         psMemberDto.setMemberid(Ps_memberController.nowlogin.getMemberid());
 
-        // HashMap에 Ps_memberDto를 키로 설정
         map.put(psMemberDto, map.get(psMemberDto));
 
         result = Ps_MovieDao.getInstance().selectGerne(map);

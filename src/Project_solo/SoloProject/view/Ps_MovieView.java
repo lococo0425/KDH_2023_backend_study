@@ -66,9 +66,7 @@ public class Ps_MovieView {
         Ps_memberDto psMemberDto = new Ps_memberDto();
         // 현재 로그인한 회원의 정보를 가져와서 설정
         psMemberDto.setMemberid(Ps_memberController.nowlogin.getMemberid());
-
         HashMap<Ps_memberDto, Ps_MovieDto> map = new HashMap<>();
-        // 수정된 부분: Ps_memberDto를 key로 사용하도록 변경
         map.put(psMemberDto, psMovieDto);
 
         // 결과 출력
@@ -98,7 +96,7 @@ public class Ps_MovieView {
         Ps_memberDto ps_memberDto = new Ps_memberDto();
         List<String> result = Ps_movieController.getInstance().recommendMovie(ps_memberDto);
 
-        System.out.println(result); // 디버깅용 ** 문제발생...
+        System.out.println(result);//디버깅
         if (!result.isEmpty()) {
             list.add(result.toString());
             System.out.println(result);//디버깅용

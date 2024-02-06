@@ -59,10 +59,8 @@ public class Ps_MovieDao extends PsDao{
         try {
             String sql = "select * from movies where genre = ?";
 
-            // 올바른 값으로 초기화하기 위해 null로 설정
             Ps_MovieDto movieDto = null;
 
-            // 맵의 각 항목에 대해 logmessage 값을 올바르게 설정
             for (Map.Entry<Ps_memberDto, Ps_MovieDto> entry : map.entrySet()) {
                 if (entry.getKey() != null) {
                     movieDto = entry.getValue(); // 맵의 값인 Ps_MovieDto 객체를 가져옴
@@ -70,7 +68,7 @@ public class Ps_MovieDao extends PsDao{
                 }
             }
 
-            // 올바른 데이터가 맵에 추가되었는지 확인
+            //null 이 아닐때
             if (movieDto != null) {
                 String logmessage = movieDto.getGenreName();
 

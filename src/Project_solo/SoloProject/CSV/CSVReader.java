@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CSVReader {
-    // CSVReader 클래스의 movielist를 한 번만 초기화되도록 static으로 선언
+    // movielist를 한 번만 초기화되도록 static으로 선언
     public static List<Ps_MovieDto> movielist = null;
 
     public static void main(String[] args) {
@@ -19,8 +19,7 @@ public class CSVReader {
         if (movielist == null) {
             movielist = csvReader.readCSV();
         }
-        // movielist가 null이 아니면 이미 초기화되어 있으므로 다시 초기화할 필요 없음
-        // 따라서 main 메서드에서는 movielist를 출력하는 코드만 포함
+
         for (int i = 0; i < movielist.size(); i++) {
             System.out.println(movielist.get(i));
         }
