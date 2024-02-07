@@ -111,9 +111,11 @@ public class Ps_MovieView {
             }
             // weights map { 액션 : 0.1 , 드라마 : 0.1 }
             // list [액션, 액션, 드라마]
-            for(int i=0; i<list.size();i++){
-                if(weights.containsKey(list.get(i))){ // weights의 키값이 list(i)의 값을 가지면
-                    weights.put(list.get(i),weights.get(list.get(i))+0.1);
+
+            for (int i = 0; i < list.size(); i++) {
+                if (weights.containsKey(list.get(i))) { // weights의 키값이 list(i)의 값을 가지면
+                    double oldValue = weights.get(list.get(i)); // 이전 값 가져오기
+                    weights.put(list.get(i), oldValue + 0.1); // 이전 값에 0.1을 더한 값을 다시 저장
                 }
             }
             // list 만큼 반복해서 리스트내 값이랑 weights map의 키와 같으면 해당 키의 값을 증가.
