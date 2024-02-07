@@ -54,7 +54,7 @@ public class Ps_movieController {
 
     public List<String> recommendMovie(Ps_memberDto ps_memberDto){
         List<String>result = null;
-
+        ps_memberDto = Ps_memberController.nowlogin;
         result = Ps_MovieDao.getInstance().recommendMovie(ps_memberDto);
 
 

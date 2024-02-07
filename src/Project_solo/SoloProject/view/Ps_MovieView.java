@@ -13,7 +13,7 @@ import java.util.*;
 public class Ps_MovieView {
     // 가중치를 위한 list 선언
     public static List<String> list = new ArrayList<>();
-    public static List<Double> weights = new ArrayList<>();
+    public static Map<String , Double> weights = new HashMap<>();
     private static boolean isInitialized = false; // CSVReader의 movielist 초기화 여부를 나타내는 변수
 
     private Ps_MovieView() {}
@@ -96,21 +96,32 @@ public class Ps_MovieView {
         Ps_memberDto ps_memberDto = new Ps_memberDto();
         List<String> result = Ps_movieController.getInstance().recommendMovie(ps_memberDto);
 
+
+
+
         System.out.println(result);//디버깅
         if (!result.isEmpty()) {
-            list.add(result.toString());
+            list = result;
             System.out.println(result);//디버깅용
             System.out.println(list);
 
             // 가중치 부분
             for (int i = 0; i < list.size(); i++) {
-                weights.add(0.1);
+                weights.put( list.get(i) , 0.1 );
             }
+            // weights map { 액션 : 0.1 , 드라마 : 0.1 }
+            // list [액션, 액션, 드라마]
+            for(int i=0; i<list.size();i++){
+                if(weights.containsKey(list.get(i))){ // weights의 키값이 list(i)의 값을 가지면
+                    weights.put(list.get(i),weights.get(list.get(i))+0.1);
+                }
+            }
+            // list 만큼 반복해서 리스트내 값이랑 weights map의 키와 같으면 해당 키의 값을 증가.
 
             int count = 0;
             Random random = new Random();
             for (int j = 0; j < 100; j++) {
-                String selectValue = dynamicWeightValues(list, weights, count, random);
+                String selectValue = dynamicWeightValues(list,(List<Double>)weights, count, random); // weights의 형태를 List<Double>에서 HashMap<String, Double>로 변경
 
                 if (selectValue.equals(list.get(j))) {
                     count++;
