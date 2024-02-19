@@ -119,7 +119,7 @@ public class Ps_MovieDao extends PsDao{
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, ps_memberDto.getMemberid());
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 result.add(resultSet.getString("log_message"));
             }
             return result;
