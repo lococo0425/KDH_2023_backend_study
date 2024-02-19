@@ -127,7 +127,6 @@ public class Ps_MovieDao extends PsDao{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return result;
     }
 
@@ -145,7 +144,6 @@ public class Ps_MovieDao extends PsDao{
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
 }

@@ -133,7 +133,6 @@ public class Ps_MovieView {
             Double maxValue = Collections.max(weights.values());
             System.out.println(maxValue);
 
-
             /*
                 - 1.최근날짜 가중치 [ 기준날짜 = 가입날짜 ]
                 2024-02-01      0.03
@@ -143,8 +142,6 @@ public class Ps_MovieView {
                 액션
 
              */
-
-
         }
     }
 
