@@ -119,7 +119,7 @@ public class Ps_MovieDao extends PsDao{
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, ps_memberDto.getMemberid());
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 result.add(resultSet.getString("log_message"));
             }
             return result;
@@ -129,5 +129,23 @@ public class Ps_MovieDao extends PsDao{
         }
 
         return result;
+    }
+
+    public String todaylog(Ps_memberDto ps_memberDto){
+        String result = "";
+        try{
+            String sql = "select today from logs where mid = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,ps_memberDto.getMemberid());
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                result = resultSet.getString("today");
+                return result;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

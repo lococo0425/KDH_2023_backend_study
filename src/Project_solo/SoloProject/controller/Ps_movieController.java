@@ -61,5 +61,10 @@ public class Ps_movieController {
         return  result;
     }
 
+    public String todaylog(Ps_memberDto ps_memberDto){
+        String result = Ps_MovieDao.getInstance().todaylog(ps_memberDto);
+
+        return result;
+    }
 
 }

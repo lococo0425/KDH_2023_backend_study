@@ -1,5 +1,7 @@
 package Project_solo.SoloProject.view;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import Project_solo.SoloProject.CSV.CSVReader;
 import Project_solo.SoloProject.controller.Ps_memberController;
 import Project_solo.SoloProject.controller.Ps_movieController;
@@ -7,10 +9,16 @@ import Project_solo.SoloProject.model.dto.Ps_MovieDto;
 import Project_solo.SoloProject.model.dto.Ps_memberDto;
 import Project_solo.가중치부여.DynamicWeight;
 
+
 import java.sql.PreparedStatement;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Ps_MovieView {
+    // 날짜 계산을 위한 date 선언
+    static LocalDateTime localDatenow = LocalDateTime.now();
+    static DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     // 가중치를 위한 list 선언
     public static List<String> list = new ArrayList<>();
     public static Map<String , Double> weights = new HashMap<>();
@@ -95,9 +103,9 @@ public class Ps_MovieView {
 
         Ps_memberDto ps_memberDto = new Ps_memberDto();
         List<String> result = Ps_movieController.getInstance().recommendMovie(ps_memberDto);
+        String result1 = Ps_movieController.getInstance().todaylog(ps_memberDto);
 
-
-
+        System.out.println(result1);
 
         System.out.println(result);//디버깅
         if (!result.isEmpty()) {
@@ -107,61 +115,39 @@ public class Ps_MovieView {
 
             // 가중치 부분
             for (int i = 0; i < list.size(); i++) {
-                weights.put( list.get(i) , 0.1 );
+                weights.put( list.get(i) , 0.0 );
             }
-            // weights map { 액션 : 0.1 , 드라마 : 0.1 }
+            // weights map { 액션 : 0.2 , 드라마 : 0.1 }
             // list [액션, 액션, 드라마]
 
             for (int i = 0; i < list.size(); i++) {
                 if (weights.containsKey(list.get(i))) { // weights의 키값이 list(i)의 값을 가지면
                     double oldValue = weights.get(list.get(i)); // 이전 값 가져오기
                     weights.put(list.get(i), oldValue + 0.1); // 이전 값에 0.1을 더한 값을 다시 저장
+                    if(LocalDateTime.parse(result1, form).isBefore(localDatenow.minusDays(5))){//localDatenow가 오늘 날짜보다 5일 전 보다 더 전이면
+                        weights.put(list.get(i),oldValue - 0.07);
+                    }
                 }
             }
-            // list 만큼 반복해서 리스트내 값이랑 weights map의 키와 같으면 해당 키의 값을 증가.
+            System.out.println( weights );
+            Double maxValue = Collections.max(weights.values());
+            System.out.println(maxValue);
 
-            int count = 0;
-            Random random = new Random();
-            for (int j = 0; j < 100; j++) {
-                String selectValue = dynamicWeightValues(list,(List<Double>)weights, count, random); // weights의 형태를 List<Double>에서 HashMap<String, Double>로 변경
 
-                if (selectValue.equals(list.get(j))) {
-                    count++;
-                }
-                System.out.println("추천된 영화 장르 : " + selectValue);
-            }
-            System.out.println("해당 영화장르가 나온 횟수 : " + count);
+            /*
+                - 1.최근날짜 가중치 [ 기준날짜 = 가입날짜 ]
+                2024-02-01      0.03
+                2024-02-08      0.1
 
-            List<String> MovieListge = new ArrayList<>();
-            for (int i = 0; i < CSVReader.movielist.size(); i++) {
-                String currentSelectge = CSVReader.movielist.get(i).getGenreName();
-                if (currentSelectge.equals(result)) {
-                    MovieListge.add(String.valueOf(CSVReader.movielist.get(i)));
-                }
-            }
-            System.out.println(MovieListge);
+                - 2. 근접 장르 [ makerName , movieSubdivisionName  ]
+                액션
+
+             */
+
+
         }
     }
 
-    public static String dynamicWeightValues(List<String> list, List<Double> weights, int count, Random random) {
-        double totalWeight = 0.0;
-        // 선택된 횟수에 따른 가중치 값 조절 하기
-        weights.set(0, weights.get(0) + count * 0.01);
-
-        // 전체 가중치 값 더하기
-        for (double w : weights) {
-            totalWeight += w;
-        }
-        double randomValue = random.nextDouble();
-        double cumulativeWeight = 0.0;
-        for (int i = 0; i < list.size(); i++) {
-            cumulativeWeight += weights.get(i);
-            if (randomValue < cumulativeWeight) {
-                return list.get(i);
-            }
-        }
-        return list.toString();
-    }
 
 
     private static List<String> getAvailableGenres() {
