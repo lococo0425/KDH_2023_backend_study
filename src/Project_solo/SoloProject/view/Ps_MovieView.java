@@ -107,7 +107,7 @@ public class Ps_MovieView {
 
             // 가중치 부분
             for (int i = 0; i < list.size(); i++) {
-                weights.put( list.get(i) , 0.1 );
+                weights.put( list.get(i) , 0.0 );
             }
             // weights map { 액션 : 0.1 , 드라마 : 0.1 }
             // list [액션, 액션, 드라마]
@@ -118,12 +118,23 @@ public class Ps_MovieView {
                     weights.put(list.get(i), oldValue + 0.1); // 이전 값에 0.1을 더한 값을 다시 저장
                 }
             }
+            /*
+                - 1.최근날짜 가중치 [ 기준날짜 = 가입날짜 ]
+                2024-02-01      0.03
+                2024-02-08      0.1
+
+                - 2. 근접 장르 [ makerName , movieSubdivisionName  ]
+                액션
+
+             */
+            System.out.println( weights );
             // list 만큼 반복해서 리스트내 값이랑 weights map의 키와 같으면 해당 키의 값을 증가.
 
-            int count = 0;
+/*            int count = 0;
             Random random = new Random();
+
             for (int j = 0; j < 100; j++) {
-                String selectValue = dynamicWeightValues(list,(List<Double>)weights, count, random); // weights의 형태를 List<Double>에서 HashMap<String, Double>로 변경
+                String selectValue = dynamicWeightValues( count, random); // weights의 형태를 List<Double>에서 HashMap<String, Double>로 변경
 
                 if (selectValue.equals(list.get(j))) {
                     count++;
@@ -139,11 +150,12 @@ public class Ps_MovieView {
                     MovieListge.add(String.valueOf(CSVReader.movielist.get(i)));
                 }
             }
-            System.out.println(MovieListge);
+            System.out.println(MovieListge);*/
         }
     }
+/*
 
-    public static String dynamicWeightValues(List<String> list, List<Double> weights, int count, Random random) {
+    public static String dynamicWeightValues( int count, Random random) {
         double totalWeight = 0.0;
         // 선택된 횟수에 따른 가중치 값 조절 하기
         weights.set(0, weights.get(0) + count * 0.01);
@@ -162,6 +174,7 @@ public class Ps_MovieView {
         }
         return list.toString();
     }
+*/
 
 
     private static List<String> getAvailableGenres() {
