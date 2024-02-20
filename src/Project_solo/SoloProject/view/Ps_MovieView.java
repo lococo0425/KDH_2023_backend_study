@@ -122,12 +122,9 @@ public class Ps_MovieView {
             for (int i = 0; i < list.size(); i++) {
                 if (weights.containsKey(list.get(i))) { // weights의 키값이 list(i)의 값을 가지면
 
-                    if(LocalDateTime.parse(result1.get(i),form).isBefore(localDatenow.minusDays(3))){
+                    if(LocalDateTime.parse(result1.get(i),form).isBefore(localDatenow.minusDays(5))){
                         double oldValue = weights.get(list.get(i));
-                        weights.put(list.get(i),oldValue + 0.001);
-                    }else if (LocalDateTime.parse(result1.get(i),form).isBefore(localDatenow.minusDays(5))){
-                        double oldValue = weights.get(list.get(i));
-                        weights.put(list.get(i),oldValue + 0.0001);
+                        weights.put(list.get(i),oldValue + 0.005);
                     }else{
                         double oldValue = weights.get(list.get(i));
                         weights.put(list.get(i),oldValue+0.1);
