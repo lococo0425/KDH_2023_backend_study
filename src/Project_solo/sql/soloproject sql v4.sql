@@ -41,6 +41,7 @@ CREATE TABLE logs (
     userActive VARCHAR(255),
     today datetime default now(),
     movie_id int ,
+
     FOREIGN KEY (mno) REFERENCES psmember(mno),
     foreign key (movie_id) references movies(movie_id)
 
