@@ -103,7 +103,7 @@ public class Ps_MovieView {
 
         Ps_memberDto ps_memberDto = new Ps_memberDto();
         List<String> result = Ps_movieController.getInstance().recommendMovie(ps_memberDto);
-        String result1 = Ps_movieController.getInstance().todaylog(ps_memberDto);
+        List<String> result1 = Ps_movieController.getInstance().todaylog(ps_memberDto);
 
 
         System.out.println(result);//디버깅
@@ -121,13 +121,19 @@ public class Ps_MovieView {
             System.out.println(weights);
             for (int i = 0; i < list.size(); i++) {
                 if (weights.containsKey(list.get(i))) { // weights의 키값이 list(i)의 값을 가지면
-                    double oldValue = weights.get(list.get(i)); // 이전 값 가져오기
-                    weights.put(list.get(i), oldValue + 0.1); // 이전 값에 0.1을 더한 값을 다시 저장
-                    double oldValue2 = weights.get(list.get(i));
 
-                    if(LocalDateTime.parse(result1, form).isBefore(localDatenow.minusHours(1))){//localDatenow가 오늘 날짜보다 보다  (xx) 더 전이면
-                        weights.replace(list.get(i),oldValue2 - 0.07);
+                    if(LocalDateTime.parse(result1.get(i),form).isBefore(localDatenow.minusDays(3))){
+                        double oldValue = weights.get(list.get(i));
+                        weights.put(list.get(i),oldValue + 0.001);
+                    }else if (LocalDateTime.parse(result1.get(i),form).isBefore(localDatenow.minusDays(5))){
+                        double oldValue = weights.get(list.get(i));
+                        weights.put(list.get(i),oldValue + 0.0001);
+                    }else{
+                        double oldValue = weights.get(list.get(i));
+                        weights.put(list.get(i),oldValue+0.1);
                     }
+
+
                 }
 
             }

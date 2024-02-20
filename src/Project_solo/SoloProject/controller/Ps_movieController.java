@@ -61,9 +61,10 @@ public class Ps_movieController {
         return  result;
     }
 
-    public String todaylog(Ps_memberDto ps_memberDto){
+    public List<String> todaylog(Ps_memberDto ps_memberDto){
+        List<String> result = null;
         ps_memberDto = Ps_memberController.nowlogin;
-        String result = Ps_MovieDao.getInstance().todaylog(ps_memberDto);
+        result = Ps_MovieDao.getInstance().todaylog(ps_memberDto);
 
         return result;
     }
